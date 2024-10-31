@@ -13,7 +13,7 @@ const Cards = ({ card }) => {
     img,
     facilities,
   } = card;
-  console.log(card);
+ 
   return (
     <div className="sm:col-span-1 card bg-base-100 w-96 shadow-xl">
       <figure className="px-7 pt-10">

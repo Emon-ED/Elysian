@@ -15,7 +15,7 @@ import Cards from "./Cards";
 
 const Home = () => {
   const cards = useLoaderData();
-  console.log(cards);
+
   return (
     <div className="mx-12">
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
@@ -81,7 +81,7 @@ const Home = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 m-5 mx-auto">
         {cards.map((card) => (
-          <Cards card={card}></Cards>
+          <Cards key={card.id} card={card}></Cards>
         ))}
       </div>
     </div>

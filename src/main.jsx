@@ -7,11 +7,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import router from './Routes/Routes.jsx';
+import ContextApi from './Routes/ContextApi.jsx';
 
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+ 
+  <ContextApi>
+     <StrictMode>
      <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
+  </ContextApi>
+  ,
 )
