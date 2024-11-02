@@ -1,7 +1,17 @@
 import { Link } from "react-router-dom";
 import img from "../assets/logo-removebg-preview.png";
+import { useContext } from "react";
+import { AuthContext } from "../Routes/ContextApi";
 
 const Navbar = () => {
+  // context api -----------
+  const {user,logOut}= useContext(AuthContext);
+
+
+const handleLogOut= () =>{
+  logOut();
+}
+
   const links = (
     <>
       <li>
@@ -11,25 +21,18 @@ const Navbar = () => {
         <Link to={"/updateProfile"}>Update Profile</Link>
       </li>
       <li>
-        <Link to={"/userProfile"}>User Profile</Link>
+        <Link to={"/property"}>Property</Link>
       </li>
       <li>
-        <Link to={"/property"}>Property</Link>
+        <Link to={"/userProfile"}>User Profile</Link>
       </li>
     </>
   );
 
-  const signLinks = (
-    <>
-      <Link to={"/login"}>
-        <button className="btn btn-link">Login</button>
-      </Link>
-      /
-      <Link to={"/register"}>
-        <button className="btn btn-link">Register</button>
-      </Link>
-    </>
-  );
+ 
+
+
+
 
   return (
     <div className="navbar bg-base-100 ">
@@ -62,12 +65,26 @@ const Navbar = () => {
           {" "}
           <img className="w-14" src={img} alt="" />
         </a>
-        <a className="btn btn-ghost text-xl">Elysian</a>
+        <Link to={'/'} className="btn btn-ghost text-xl">Elysian</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">{signLinks}</div>
+      <div className="navbar-end">
+      {
+      user ? <p>{user.email} <button onClick={handleLogOut} className="btn btn-link">Logout</button></p>
+
+    :
+  <>
+    <Link to={"/register"}>
+    <button className="btn btn-link">Register</button>
+  </Link> 
+  <Link to={"/login"}>
+    <button className="btn btn-link">Login</button>
+  </Link>
+  </>
+    } 
+      </div>
     </div>
   );
 };

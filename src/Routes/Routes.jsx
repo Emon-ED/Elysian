@@ -8,6 +8,7 @@ import Property from "../BodyComponents/Property";
 import Login from "../BodyComponents/Login";
 import Register from "../BodyComponents/Register";
 import Details from "../BodyComponents/Details";
+import PrivetRoutes from "./PrivetRoutes";
 
 const router = createBrowserRouter([
   {
@@ -23,11 +24,11 @@ const router = createBrowserRouter([
 
       {
         path: "/updateProfile",
-        element: <UpdateProfile></UpdateProfile>,
+        element:<PrivetRoutes> <UpdateProfile></UpdateProfile></PrivetRoutes>,
       },
       {
         path: "/userProfile",
-        element: <UserProfile></UserProfile>,
+        element: <PrivetRoutes><UserProfile></UserProfile></PrivetRoutes>,
       },
       {
         path: "/property",
@@ -43,7 +44,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        element: <Details></Details>,
+        element: <PrivetRoutes><Details></Details></PrivetRoutes>,
+        loader:()=>fetch("/../public/Data.json"),
       },
     ],
   },

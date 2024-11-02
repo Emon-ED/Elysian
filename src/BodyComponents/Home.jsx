@@ -44,7 +44,7 @@ const Home = () => {
         <SwiperSlide className="text-center">
           <div className="flex justify-center align-middle ">
             <img
-              className="w-11/12  rounded-xl drop-shadow-lg"
+              className="w-10/12  rounded-xl drop-shadow-lg"
               src={banner2}
               alt=""
             />

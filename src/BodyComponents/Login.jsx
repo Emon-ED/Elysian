@@ -1,28 +1,44 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Routes/ContextApi';
-import { FaGoogle } from 'react-icons/fa';
+import { FaGoogle, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { GoogleAuthProvider } from 'firebase/auth';
 
 
 const Login = () => {
 
 
+
+
   const {loginUser,signWithGoogle}= useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate()
+  // State Place ------------
+  
+  const [successLog,setSuccessLog]= useState('');
+  const [error,setError]= useState('');
+  const [showPass, setShowPass]= useState(true);
 
 const handleLogin = e =>{
   e.preventDefault();
-  // State Place ------------
-
-
   // Get Input Value ----------
   const email = e.target.email.value;
   const password = e.target.password.value;
- 
+  setSuccessLog('');
+  setError('');
+  
 // LogIn wirh email password ---------
   loginUser(email,password)
-  .then(result=>console.log(result.user))
-  .catch(error=>console.error(error))
+  .then(result=>{
+setSuccessLog('Login Successfully..!')
+
+
+// use location details login -----------
+    navigate(location?.state? location.state: '/')
+  })
+  .catch(error=>{
+    setError('This account dose not exits. Please Register..')
+  })
 
 }
 
@@ -36,7 +52,16 @@ const popUp=()=>{
 
 }
 
+
+
+// show pass handle ----------
+const handlePass =()=>{
+  setShowPass(!showPass)
+  console.log(showPass)
+}
+
     return (
+      <>
       <div className="hero bg-base-200 min-h-screen ">
       <div className="hero-content flex-col lg:flex-row-reverse mx-8">
         <div className="text-center lg:text-left">
@@ -51,13 +76,20 @@ const popUp=()=>{
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
-              <input  name="email" type="email" placeholder="email" className="input input-bordered" required />
+              <input  name="email" type="email" placeholder="email" className="input input-bordered w-11/12" required />
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
-              <input  name="password" type="password" placeholder="password" className="input input-bordered" required />
+          <span className='flex w-full'>
+             <input  name="password" type={showPass? "password":"text" } placeholder="password" className="input input-bordered w-11/12" required /><span  onClick={handlePass}>
+{
+  showPass?<FaRegEyeSlash className='relative top-4 right-7' />:<FaRegEye className='relative top-4 right-7' />
+}
+             
+           </span>
+             </span>
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
               </label>
@@ -72,6 +104,17 @@ const popUp=()=>{
         </div>
       </div>
     </div>
+    <div className="p-5">
+    {
+      successLog && <p className="text-2xl text-green-600 text-center">{successLog}</p>
+   
+    }
+
+    {
+      error && <p className="text-2xl text-red-600 text-center">{error}</p>
+    }
+</div>
+</>
     );
 };
 

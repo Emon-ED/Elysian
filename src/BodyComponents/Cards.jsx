@@ -2,20 +2,19 @@ import { Link } from "react-router-dom";
 
 const Cards = ({ card }) => {
   const {
-    estate_title,
     id,
     property_name,
     description,
     price,
     status,
-    area,
-    location,
     img,
-    facilities,
   } = card;
  
+
+    
   return (
-    <div className="sm:col-span-1 card bg-base-100 w-96 shadow-xl">
+  
+      <div  className="sm:col-span-1 card bg-base-100 w-96 shadow-xl">
       <figure className="px-7 pt-10">
         <img src={img} className="rounded-xl" />
       </figure>
